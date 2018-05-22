@@ -19,6 +19,7 @@ public class TelaCidCon extends javax.swing.JDialog {
     public TelaCidCon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setVisible(true);
     }
     public Cidade numero(){
     return tabelasel;   

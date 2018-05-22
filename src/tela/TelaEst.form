@@ -101,11 +101,6 @@
               </Group>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              <Component id="textNum1" min="-2" pref="87" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -120,9 +115,7 @@
                   <Component id="nome" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="sigla" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="85" max="-2" attributes="0"/>
-              <Component id="textNum1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="123" max="32767" attributes="0"/>
+              <EmptySpace pref="232" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -137,6 +130,9 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="nome">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nomeKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labnome">
       <Properties>
@@ -149,6 +145,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="sigla">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="siglaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="salvar">
       <Properties>
@@ -189,11 +188,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcelarActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="zaas.TextNum" name="textNum1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="textNum1"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

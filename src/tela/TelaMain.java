@@ -14,7 +14,7 @@ import java.util.List;
 public class TelaMain extends javax.swing.JFrame {
 
     
-    public TelaMain(Funcionario usuario) {// tela login colocar no construtor: Funcionario usuario
+    public TelaMain() {
         initComponents();
         
         setVisible(true);

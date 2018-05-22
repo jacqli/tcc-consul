@@ -5,8 +5,10 @@ import Entidades.Cliente;
 import Entidades.Exame;
 import Entidades.TipoEx;
 import Fabrica_DAO.DAOGenerico;
+import java.awt.Toolkit;
 import java.util.Calendar;
 import java.util.List;
+import org.jdatepicker.impl.JDatePickerImpl;
 
 
 public class TelaExame extends javax.swing.JInternalFrame {
@@ -19,8 +21,11 @@ public class TelaExame extends javax.swing.JInternalFrame {
         initComponents();
                 novos();
         setVisible(true);
-            
+        
+        horario.setText("1234");
+        System.out.println( listCon.size());
         for (int i = 0; i < listCon.size(); i++) {
+            System.out.println("aaaa");
             consulta.addItem(listCon.get(i).getNome());
         }
             
@@ -90,13 +95,15 @@ public class TelaExame extends javax.swing.JInternalFrame {
         labtex.setText("consulta");
         labtex.setToolTipText("");
 
-        consulta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aaaaa" }));
+        horario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                horarioKeyTyped(evt);
+            }
+        });
 
         data.setBackground(new java.awt.Color(245, 245, 245));
 
         labcliente.setText("Paciente");
-
-        cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "aaaaaa" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -164,12 +171,13 @@ public class TelaExame extends javax.swing.JInternalFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         Exame e1 = new Exame();
-        e1.setCliente(listCli.get(cliente.getSelectedIndex()+1));
-        e1.setTipoEx(listCon.get(consulta.getSelectedIndex()+1));
+        e1.setCliente(listCli.get(cliente.getSelectedIndex()));
+        e1.setTipoEx(listCon.get(consulta.getSelectedIndex()));
         Calendar cal =  Calendar.getInstance();
-      
-        cal.set(WIDTH, WIDTH, WIDTH, WIDTH, WIDTH);
-       // e1.setData();
+       JDatePickerImpl datePicker = (JDatePickerImpl) data.getComponent(0);
+       datePicker.getModel().getValue();
+        cal.set(datePicker.getModel().getYear(),datePicker.getModel().getMonth() ,datePicker.getModel().getDay(), 1, 1);
+        e1.setData(cal);
         dg.salvar(e1);
         limpar();
     }//GEN-LAST:event_salvarActionPerformed
@@ -190,6 +198,14 @@ public class TelaExame extends javax.swing.JInternalFrame {
         novos();
         limpar();
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void horarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horarioKeyTyped
+      char c = evt.getKeyChar();
+      if(Character.isDigit(c))
+         Toolkit.getDefaultToolkit().beep();
+      else
+      evt.consume();
+    }//GEN-LAST:event_horarioKeyTyped
   public void novos() {
 
         alterar.setEnabled(true);

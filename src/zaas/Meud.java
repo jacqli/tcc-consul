@@ -3,6 +3,7 @@ package zaas;
 
 import java.awt.Color;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 import javax.swing.JPanel;
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -21,7 +22,7 @@ public class Meud extends JPanel {
         model.setValue(Calendar.getInstance().getTime());
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-
+       Date selectedate = (Date) datePicker.getModel().getValue();
        datePicker.setVisible(true);
        add(datePicker);
        setVisible(true);

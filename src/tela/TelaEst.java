@@ -2,6 +2,8 @@ package tela;
 
 import Entidades.Estado;
 import Fabrica_DAO.DAOGenerico;
+import com.sun.glass.events.KeyEvent;
+import java.awt.Toolkit;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -39,7 +41,6 @@ public class TelaEst extends javax.swing.JInternalFrame {
         atualizar = new javax.swing.JButton();
         alterar = new javax.swing.JButton();
         calcelar = new javax.swing.JButton();
-        textNum1 = new zaas.TextNum();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -55,9 +56,21 @@ public class TelaEst extends javax.swing.JInternalFrame {
 
         setClosable(true);
 
+        nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomeKeyTyped(evt);
+            }
+        });
+
         labnome.setText("Nome");
 
         labsigla.setText("Sigla");
+
+        sigla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                siglaKeyTyped(evt);
+            }
+        });
 
         salvar.setText("salvar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,8 +107,6 @@ public class TelaEst extends javax.swing.JInternalFrame {
             }
         });
 
-        textNum1.setText("textNum1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,10 +131,6 @@ public class TelaEst extends javax.swing.JInternalFrame {
                     .addComponent(labsigla)
                     .addComponent(sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(textNum1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,9 +142,7 @@ public class TelaEst extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(85, 85, 85)
-                .addComponent(textNum1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
                     .addComponent(atualizar)
@@ -165,7 +170,6 @@ public class TelaEst extends javax.swing.JInternalFrame {
     private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
 
         TelaEstCon consulta = new TelaEstCon(null, true);
-        consulta.setVisible(true);
         consulta.setModal(true);
 
         ent = consulta.numero();
@@ -178,6 +182,9 @@ public class TelaEst extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_alterarActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+           if(teste()){
+            return;
+        }
         ent.setNome(nome.getText());
         ent.setSigla(sigla.getText());
         dg.atualizar(ent);
@@ -195,6 +202,24 @@ public class TelaEst extends javax.swing.JInternalFrame {
         novos();
         limpar();
     }//GEN-LAST:event_calcelarActionPerformed
+
+    private void siglaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_siglaKeyTyped
+       char c = evt.getKeyChar();
+       if(c== KeyEvent.VK_BACKSPACE || c== KeyEvent.VK_DELETE){     
+       }else if( Character.isDigit(c) || sigla.getText().length() >= 2){
+        Toolkit.getDefaultToolkit().beep();
+        evt.consume();
+       }
+       else if(Character.isLowerCase(c)){
+     evt.setKeyChar(Character.toUpperCase(c));
+       }
+    }//GEN-LAST:event_siglaKeyTyped
+
+    private void nomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyTyped
+    if(nome.getText().isEmpty()){
+       evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+    }
+    }//GEN-LAST:event_nomeKeyTyped
     public void novos() {
 
         alterar.setEnabled(true);
@@ -230,11 +255,11 @@ public class TelaEst extends javax.swing.JInternalFrame {
     
     private boolean teste(){
     if(nome.getText().isEmpty() || sigla.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null,"aaaaaaaaaaaaaaaaaaa");
+        JOptionPane.showMessageDialog(null,"certo");
         return true;
         
     }else{
-           JOptionPane.showMessageDialog(null,"bbbbbbbbbbbbbbb");
+           JOptionPane.showMessageDialog(null,"erro");
        return false; 
                } 
     }
@@ -255,6 +280,5 @@ public class TelaEst extends javax.swing.JInternalFrame {
     private javax.swing.JTextField nome;
     private javax.swing.JButton salvar;
     private javax.swing.JTextField sigla;
-    private zaas.TextNum textNum1;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,22 +5,21 @@ import Entidades.Cidade;
 import Entidades.Estado;
 import Fabrica_DAO.DAOGenerico;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class TelaCid extends javax.swing.JInternalFrame {
 
     DAOGenerico de = new DAOGenerico();
-    private Cidade altes;
-
+    private Cidade ent;
+    private List<Estado> listEst = de.consultar(Estado.class);
     public TelaCid() {
         initComponents();
         setVisible(true);
-        List<Estado> gg = de.consultar(Estado.class);
-        for (int i = 0; i < gg.size(); i++) {
-            estado.addItem(gg.get(i).getNome());
+       
+        for (int i = 0; i < listEst.size(); i++) {
+            estado.addItem(listEst.get(i).getNome());
         }
-                    novo.setEnabled(false);
-            atualizar.setEnabled(false);
-            excluir.setEnabled(false);
+          novos();      
     }
 
     /**
@@ -33,36 +32,30 @@ public class TelaCid extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jComboBox1 = new javax.swing.JComboBox<>();
-        labNome = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel2 = new javax.swing.JLabel();
-        labEst = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
+        labestado = new javax.swing.JLabel();
         estado = new javax.swing.JComboBox<>();
         salvar = new javax.swing.JButton();
-        alterar = new javax.swing.JButton();
         excluir = new javax.swing.JButton();
         atualizar = new javax.swing.JButton();
-        novo = new javax.swing.JButton();
+        alterar = new javax.swing.JButton();
+        calcelar = new javax.swing.JButton();
+        nome = new javax.swing.JTextField();
+        labnome = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setClosable(true);
 
-        labNome.setText("Nome");
+        labestado.setText("Estado");
 
-        labEst.setText("Estado");
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um estado" }));
 
-        salvar.setText("Salvar");
+        salvar.setText("salvar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarActionPerformed(evt);
-            }
-        });
-
-        alterar.setText("alterar");
-        alterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alterarActionPerformed(evt);
             }
         });
 
@@ -80,153 +73,197 @@ public class TelaCid extends javax.swing.JInternalFrame {
             }
         });
 
-        novo.setText("novo");
-        novo.addActionListener(new java.awt.event.ActionListener() {
+        alterar.setText("alterar");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoActionPerformed(evt);
+                alterarActionPerformed(evt);
             }
         });
+
+        calcelar.setText("Cancelar");
+        calcelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcelarActionPerformed(evt);
+            }
+        });
+
+        nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomeKeyTyped(evt);
+            }
+        });
+
+        labnome.setText("Nome");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labnome))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labNome))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labEst)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 61, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(alterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                                .addComponent(excluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atualizar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(novo)
-                                .addGap(74, 74, 74)))
+                        .addComponent(labestado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(salvar)))
-                .addContainerGap())
+                        .addComponent(jLabel2))
+                    .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(49, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(alterar)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap(90, Short.MAX_VALUE)
+                    .addComponent(calcelar)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(excluir)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(atualizar)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(salvar)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labNome)
                     .addComponent(jLabel2)
-                    .addComponent(labEst))
+                    .addComponent(labestado)
+                    .addComponent(labnome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salvar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(novo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(atualizar)
-                            .addComponent(excluir)
-                            .addComponent(alterar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                .addComponent(alterar)
                 .addContainerGap())
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap(252, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(salvar)
+                        .addComponent(atualizar)
+                        .addComponent(excluir)
+                        .addComponent(calcelar))
+                    .addContainerGap()))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
-
-        List<Estado> gg = de.consultar(Estado.class);
+        if(teste()){
+            return;
+        }
+   
         Cidade c1 = new Cidade();
         c1.setNome(nome.getText());
-        c1.setEstado(gg.get(estado.getSelectedIndex()));
+        c1.setEstado(listEst.get(estado.getSelectedIndex()));
         de.salvar(c1);
-        nome.setText("");
+        limpar();
+
     }//GEN-LAST:event_salvarActionPerformed
 
-    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
-        List<Estado> gg = de.consultar(Estado.class);
-        atualizas();
-
-        TelaCidCon a = new TelaCidCon(null, true);
-        a.setVisible(true);
-        a.setModal(true);
-
-        altes = a.numero();
-        nome.setText(altes.getNome());
-        labNome.setText("nome(" + altes.getNome() + ")");
-        labEst.setText("estado(" + altes.getEstado().getNome() + ")");
-    }//GEN-LAST:event_alterarActionPerformed
-
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
-        de.excluir(Cidade.class, altes.getId());
+       de.excluir(Cidade.class, ent.getId());
         novos();
         limpar();
     }//GEN-LAST:event_excluirActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
-        List<Estado> gg = de.consultar(Estado.class);
-        altes.setNome(nome.getText());
-        altes.setEstado(gg.get(estado.getSelectedIndex()));
-        de.atualizar(altes);
+            if(teste()){
+            return;
+        }
+        ent.setNome(nome.getText());
+        ent.setEstado(listEst.get(estado.getSelectedIndex()));
+        de.atualizar(ent);
         novos();
         limpar();
     }//GEN-LAST:event_atualizarActionPerformed
 
-    private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
+
+        TelaCidCon consulta = new TelaCidCon(null, true);
+        consulta.setModal(true);
+
+        ent = consulta.numero();
+        nome.setText(ent.getNome());
+        estado.setSelectedItem("Selecione um estado");
+        labnome.setText("nome(" + ent.getNome() + ")");
+        labestado.setText("sigla(" + ent.getEstado().getNome()+ ")");
+
+        atualizas();
+    }//GEN-LAST:event_alterarActionPerformed
+
+    private void calcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcelarActionPerformed
         novos();
         limpar();
+    }//GEN-LAST:event_calcelarActionPerformed
 
-    }//GEN-LAST:event_novoActionPerformed
+    private void nomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyTyped
+        if(nome.getText().isEmpty()){
+            evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+        }
+    }//GEN-LAST:event_nomeKeyTyped
 
     public void novos() {
 
-        novo.setEnabled(false);
         alterar.setEnabled(true);
         atualizar.setEnabled(false);
         excluir.setEnabled(false);
         salvar.setEnabled(true);
+
+        alterar.setVisible(true);
+        atualizar.setVisible(false);
+        excluir.setVisible(false);
+        salvar.setVisible(true);
     }
 
     public void atualizas() {
-        novo.setEnabled(true);
         alterar.setEnabled(false);
         atualizar.setEnabled(true);
         excluir.setEnabled(true);
         salvar.setEnabled(false);
+
+        alterar.setVisible(false);
+        atualizar.setVisible(true);
+        excluir.setVisible(true);
+        salvar.setVisible(false);
     }
 
     private void limpar() {
         nome.setText("");
-        labNome.setText("nome");
-        labEst.setText("sigla");
+        estado.setSelectedItem("Selecione um estado");
+        labnome.setText("nome");
+        labestado.setText("sigla");
 
     }
+        private boolean teste(){
+    if(nome.getText().isEmpty() || estado.getSelectedIndex()== 0){
+        JOptionPane.showMessageDialog(null,"certo");
+        return true;
+        
+    }else{
+           JOptionPane.showMessageDialog(null,"erro");
+       return false; 
+               } 
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterar;
     private javax.swing.JButton atualizar;
+    private javax.swing.JButton calcelar;
     private javax.swing.JComboBox<String> estado;
     private javax.swing.JButton excluir;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel labEst;
-    private javax.swing.JLabel labNome;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel labestado;
+    private javax.swing.JLabel labnome;
     private javax.swing.JTextField nome;
-    private javax.swing.JButton novo;
     private javax.swing.JButton salvar;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,6 +20,7 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
         initComponents();
         tabela.addMouseListener(this);
         pesquisar.setText("dasdadsada");
+        setVisible(true);
     }
         public Estado numero(){
     return entSel;   
