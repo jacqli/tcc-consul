@@ -8,8 +8,10 @@ import Entidades.Funcionario;
 import Entidades.Produto;
 import Entidades.TipoEx;
 import Fabrica_DAO.DAOGenerico;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -21,29 +23,55 @@ public class CriaClasse {
         DAOGenerico dg = new DAOGenerico();
 
         Estado e2 = new Estado();
-        e2.setNome("aaaa");
-        e2.setSigla("gh");
+        e2.setNome("Acre");
+        e2.setSigla("AC");
         dg.salvar(e2);
-        e2.setNome("dasdasd");
+     /*   e2.setNome("dasdasd");
         e2.setSigla("MA");
         dg.atualizar(e2);
+   */
 
         Estado e3 = new Estado();
-        e3.setNome("ab");
-        e3.setSigla("MF");
+        e3.setNome("Alagoas");
+        e3.setSigla("AL");
         dg.salvar(e3);
-        dg.excluir(Estado.class, e3.getId());
+   //     dg.excluir(Estado.class, e3.getId());
 
         Estado e4 = new Estado();
-        e4.setNome("aac");
-        e4.setSigla("M");
+        e4.setNome("Amapa");
+        e4.setSigla("AP");
         dg.salvar(e4);
 
         Estado e5 = new Estado();
-        e5.setNome("ddaa");
-        e5.setSigla("MS");
+        e5.setNome("Amazonas");
+        e5.setSigla("AM");
         dg.salvar(e5);
+        
+           Estado e6 = new Estado();
+        e6.setNome("Bahia");
+        e6.setSigla("BA");
+        dg.salvar(e6);
+        
+           Estado e7 = new Estado();
+        e7.setNome("Ceara");
+        e7.setSigla("CE");
+        dg.salvar(e7);
 
+           Estado e8 = new Estado();
+        e8.setNome("Distrito Federal");
+        e8.setSigla("DF");
+        dg.salvar(e8);
+        
+           Estado e9 = new Estado();
+        e9.setNome("Espirito Santo");
+        e9.setSigla("ES");
+        dg.salvar(e9);
+        
+           Estado e10 = new Estado();
+        e10.setNome("Goias");
+        e10.setSigla("GO");
+        dg.salvar(e10);
+        
         Cidade c2 = new Cidade();
         c2.setNome("platina");
         c2.setEstado(e2);
@@ -119,22 +147,56 @@ public class CriaClasse {
         te2.setTempoEx(90);
         dg.salvar(te2);
 
+        
         Exame co1 = new Exame();
         Calendar cal = Calendar.getInstance();
-    
-        String tempo = "2011 Mar 14 16:02";
+        String tempo = "2018 Jul 14 10:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
         try {
             cal.setTime(sdf.parse(tempo));
-// adicionar minhutos cal.add(Calendar.MINUTE, 100); 
-       cal.add(Calendar.MINUTE, te2.getTempoEx());
         } catch (ParseException e) {
             e.printStackTrace();
         }
         co1.setCliente(cl3);
         co1.setTipoEx(te2);
-        co1.setData(cal);
+        co1.setData(cal.getTime());
+        co1.setHora(cal.getTime());
         dg.salvar(co1);
+        
+        Exame co2 = new Exame();
+        Calendar cal2 = Calendar.getInstance();
+    
+        String tempo2 = "2018 Jul 14 10:30";
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
+        try {
+            cal2.setTime(sdf.parse(tempo2));
+// adicionar minhutos cal.add(Calendar.MINUTE, 100); 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        co2.setCliente(cl2);
+        co2.setTipoEx(te2);
+        co2.setData(cal2.getTime());
+        co2.setHora(cal2.getTime());
+        dg.salvar(co2);
+        
+        Exame co3 = new Exame();
+        Calendar cal3 = Calendar.getInstance();
+    
+        String tempo3 = "2018 Jul 14 11:00";
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
+        try {
+            cal3.setTime(sdf.parse(tempo3));
+// adicionar minhutos cal.add(Calendar.MINUTE, 100); 
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        co3.setCliente(cl3);
+        co3.setTipoEx(te2);
+        co3.setData(cal3.getTime());
+        co3.setHora(cal3.getTime());
+        dg.salvar(co3);
+        
         
         
 
@@ -162,5 +224,6 @@ public class CriaClasse {
          telam.setName("Jacqli");
          telam.setTitle("Abanana");*/
     }
+    
 
 }
