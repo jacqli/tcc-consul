@@ -124,7 +124,7 @@ public class TelaTExCon extends javax.swing.JDialog implements MouseListener{
         listEnt = dg.consultar(TipoEx.class, nome.getText());
 
         for (int i = 0; i < listEnt.size(); i++) {
-            Object[] data = {listEnt.get(i).getNome(), listEnt.get(i).getPreco(),listEnt.get(i).getTempoEx()};
+            Object[] data = {listEnt.get(i).getNome(), listEnt.get(i).getTempoEx()};
             model.addRow(data);
         }
 

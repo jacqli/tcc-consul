@@ -3,7 +3,10 @@ package tela;
 
 import Entidades.TipoEx;
 import Fabrica_DAO.DAOGenerico;
+import com.sun.glass.events.KeyEvent;
+import java.awt.Toolkit;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 
 public class TelaTEx extends javax.swing.JInternalFrame {
@@ -30,8 +33,6 @@ public class TelaTEx extends javax.swing.JInternalFrame {
         cancelar = new javax.swing.JButton();
         nome = new javax.swing.JTextField();
         labnome = new javax.swing.JLabel();
-        labpreco = new javax.swing.JLabel();
-        preco = new javax.swing.JTextField();
         labTempo = new javax.swing.JLabel();
         tempo = new javax.swing.JTextField();
 
@@ -70,12 +71,21 @@ public class TelaTEx extends javax.swing.JInternalFrame {
             }
         });
 
+        nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomeKeyTyped(evt);
+            }
+        });
+
         labnome.setText("Nome");
 
-        labpreco.setText("Preço inicial");
-        labpreco.setToolTipText("");
-
         labTempo.setText("Tempo(minutos)");
+
+        tempo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tempoKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,32 +105,23 @@ public class TelaTEx extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labTempo)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(tempo, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labnome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labpreco)
-                            .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tempo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labnome, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)))
+                .addGap(0, 249, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labnome)
-                    .addComponent(labpreco))
+                .addComponent(labnome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labTempo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tempo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
                     .addComponent(atualizar)
@@ -134,9 +135,11 @@ public class TelaTEx extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+       if(teste()){
+       return;
+       } 
         TipoEx e1 = new TipoEx();
         e1.setNome(nome.getText());
-        e1.setPreco(Double.parseDouble(preco.getText()));
         e1.setTempoEx(Integer.parseInt(tempo.getText()));
         
         dg.salvar(e1);
@@ -151,8 +154,10 @@ public class TelaTEx extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_excluirActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
+       if(teste()){
+       return;
+       } 
         ent.setNome(nome.getText());
-        ent.setPreco(Double.parseDouble(preco.getText()));
         ent.setTempoEx(Integer.parseInt(tempo.getText()));
         dg.atualizar(ent);
         novos();
@@ -166,11 +171,9 @@ public class TelaTEx extends javax.swing.JInternalFrame {
 
         ent = consulta.numero();
         nome.setText(ent.getNome());
-        preco.setText(Double.toString(ent.getPreco()));
         tempo.setText(Integer.toString(ent.getTempoEx()));
         labnome.setText("nome(" + ent.getNome() + ")");
-        labpreco.setText("preco(" + ent.getPreco() + ")");
-        labTempo.setText("preco(" + ent.getTempoEx() + ")");
+        labTempo.setText("tempo(" + ent.getTempoEx() + ")");
         
         atualizas();
     }//GEN-LAST:event_alterarActionPerformed
@@ -179,6 +182,21 @@ public class TelaTEx extends javax.swing.JInternalFrame {
         novos();
         limpar();
     }//GEN-LAST:event_cancelarActionPerformed
+
+    private void nomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyTyped
+      if(nome.getText().isEmpty()){
+       evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+    }
+    }//GEN-LAST:event_nomeKeyTyped
+
+    private void tempoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tempoKeyTyped
+           char c = evt.getKeyChar();
+       if(c== KeyEvent.VK_BACKSPACE || c== KeyEvent.VK_DELETE){     
+       }else if( Character.isLetter(c)){
+        Toolkit.getDefaultToolkit().beep();
+        evt.consume();
+       }
+    }//GEN-LAST:event_tempoKeyTyped
     public void novos() {
 
         alterar.setEnabled(true);
@@ -206,12 +224,22 @@ public class TelaTEx extends javax.swing.JInternalFrame {
 
     private void limpar() {
         nome.setText("");
-        preco.setText("");
         tempo.setText("");
         labnome.setText("nome");
-        labpreco.setText("preco");
         labTempo.setText("tempo(minutos)");
 
+    }
+    
+    private boolean teste(){
+      if(nome.getText().isEmpty()){
+      JOptionPane.showMessageDialog(null,"o campo nome esta vazio");
+          return true;
+      } else if(tempo.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null,"o campo tempo esta vazio");
+          return true;
+      } else{
+         return false; 
+    }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -221,9 +249,7 @@ public class TelaTEx extends javax.swing.JInternalFrame {
     private javax.swing.JButton excluir;
     private javax.swing.JLabel labTempo;
     private javax.swing.JLabel labnome;
-    private javax.swing.JLabel labpreco;
     private javax.swing.JTextField nome;
-    private javax.swing.JTextField preco;
     private javax.swing.JButton salvar;
     private javax.swing.JTextField tempo;
     // End of variables declaration//GEN-END:variables

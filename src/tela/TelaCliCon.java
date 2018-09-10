@@ -50,27 +50,12 @@ public class TelaCliCon extends javax.swing.JDialog {
 
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null}
+                {}
             },
             new String [] {
-                "Nome", "Sigla"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane2.setViewportView(tabela);
 
         concluir.setText("Concluir");
@@ -135,7 +120,7 @@ public class TelaCliCon extends javax.swing.JDialog {
 
         for (int i = 0; i < gg.size(); i++) {
             Object[] data = {gg.get(i).getNome(), gg.get(i).getCidade().getNome(), gg.get(i).getBairro()
-                    ,gg.get(i).getRua(), gg.get(i).getNumero(), gg.get(i).getFone(), gg.get(i).getCPF()
+                    ,gg.get(i).getRua(), gg.get(i).getNumero(), gg.get(i).getTel(), gg.get(i).getCPF()
                     , gg.get(i).getRg()};
             model.addRow(data);
         }

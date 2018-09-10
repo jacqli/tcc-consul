@@ -91,7 +91,7 @@ public class CriaClasse {
         f2.setNome("eu");
         f2.setCPF("111111111");
         f2.setCartTrab(111);
-        f2.setFone(2222222);
+        f2.setTel(2222222);
         f2.setLogin("aula");
         f2.setSenha("aula");
         f2.setCidade(c3);
@@ -104,7 +104,7 @@ public class CriaClasse {
         f3.setNome("ele");
         f3.setCPF("111111111");
         f3.setCartTrab(222);
-        f3.setFone(3333333);
+        f3.setTel(3333333);
         f3.setLogin("aluno");
         f3.setSenha("aluno");
         f3.setCidade(c3);
@@ -119,7 +119,7 @@ public class CriaClasse {
         cl2.setBairro("aaa");
         cl2.setRua("ruaaaa");
         cl2.setNumero(1234);
-        cl2.setFone(12345);
+        cl2.setTel(12345);
         cl2.setRg(123456);
         cl2.setCPF("12342455");
         dg.salvar(cl2);
@@ -130,33 +130,34 @@ public class CriaClasse {
         cl3.setBairro("bbb");
         cl3.setRua("rubbbbb");
         cl3.setNumero(4321);
-        cl3.setFone(54321);
+        cl3.setTel(54321);
         cl3.setRg(654321);
         cl3.setCPF("12355324");
         dg.salvar(cl3);
 
         TipoEx te1 = new TipoEx();
         te1.setNome("meu dente");
-        te1.setPreco(20.20);
         te1.setTempoEx(30);
         dg.salvar(te1);
         
         TipoEx te2 = new TipoEx();
-        te2.setNome("mead");
-        te2.setPreco(130.50);
+        te2.setNome("doi");
         te2.setTempoEx(90);
         dg.salvar(te2);
 
         
         Exame co1 = new Exame();
         Calendar cal = Calendar.getInstance();
+       cal.set(Calendar.HOUR_OF_DAY, 10);
+       cal.set(Calendar.MINUTE, 00);
+       /* esse codigo pode ser util dps 
         String tempo = "2018 Jul 14 10:00";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
         try {
             cal.setTime(sdf.parse(tempo));
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
         co1.setCliente(cl3);
         co1.setTipoEx(te2);
         co1.setData(cal.getTime());
@@ -165,15 +166,9 @@ public class CriaClasse {
         
         Exame co2 = new Exame();
         Calendar cal2 = Calendar.getInstance();
-    
-        String tempo2 = "2018 Jul 14 10:30";
-        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
-        try {
-            cal2.setTime(sdf.parse(tempo2));
-// adicionar minhutos cal.add(Calendar.MINUTE, 100); 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+       cal2.set(Calendar.HOUR_OF_DAY, 10);
+       cal2.set(Calendar.MINUTE, 30);
+   
         co2.setCliente(cl2);
         co2.setTipoEx(te2);
         co2.setData(cal2.getTime());
@@ -182,15 +177,10 @@ public class CriaClasse {
         
         Exame co3 = new Exame();
         Calendar cal3 = Calendar.getInstance();
+        cal3.set(Calendar.HOUR_OF_DAY, 11);
+       cal3.set(Calendar.MINUTE, 30);
+   
     
-        String tempo3 = "2018 Jul 14 11:00";
-        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.getDefault());
-        try {
-            cal3.setTime(sdf.parse(tempo3));
-// adicionar minhutos cal.add(Calendar.MINUTE, 100); 
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
         co3.setCliente(cl3);
         co3.setTipoEx(te2);
         co3.setData(cal3.getTime());

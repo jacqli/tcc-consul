@@ -9,17 +9,25 @@ import java.awt.event.MouseListener;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
+           // Se tiver mais de um usuario voltar para o botão pesquisa
 
 public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
-
-      private Estado entSel;
-      private List<Estado> listEnt;
-       DAOGenerico dg = new DAOGenerico();
+      private Estado entSel = null;
+        private  DAOGenerico dg = new DAOGenerico();
+      private List<Estado> listEnt ;
+   
+     
+     private  DefaultTableModel model2 = new DefaultTableModel();
+       
     public TelaEstCon(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        listEnt = dg.consultar(Estado.class, nome.getText());
+        System.out.println("ewq");
+        model2.addColumn("Nome");
+        model2.addColumn("Sigla");
+        System.out.println("qwerty");
         tabela.addMouseListener(this);
-        pesquisar.setText("dasdadsada");
         setVisible(true);
     }
         public Estado numero(){
@@ -31,7 +39,6 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pesquisar = new javax.swing.JButton();
         nome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -40,16 +47,9 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        pesquisar.setText("pesquisar");
-        pesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pesquisarActionPerformed(evt);
-            }
-        });
-
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nomeKeyPressed(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nomeKeyReleased(evt);
             }
         });
 
@@ -84,18 +84,13 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(nome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pesquisar))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(concluir)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(concluir)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -105,34 +100,15 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pesquisar)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(concluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(concluir, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void pesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisarActionPerformed
-       
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("Nome");
-        model.addColumn("Sigla");
-        
-        listEnt = dg.consultar(Estado.class, nome.getText());
-        
-        for (int i = 0; i < listEnt.size(); i++) {
-        Object[] data = {listEnt.get(i).getNome(), listEnt.get(i).getSigla()};
-            model.addRow(data);
-            }
-           
-           tabela.setModel(model);
-          
-    }//GEN-LAST:event_pesquisarActionPerformed
 
     private void concluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_concluirActionPerformed
         
@@ -141,18 +117,46 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
     }//GEN-LAST:event_concluirActionPerformed
 
     private void tabelaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tabelaKeyPressed
-        if(evt.getKeyCode() == 10){
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
             concluir.doClick();
         }
             
     }//GEN-LAST:event_tabelaKeyPressed
 
-    private void nomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyPressed
-     if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-         pesquisar.doClick();
-     }
-    }//GEN-LAST:event_nomeKeyPressed
+    private void nomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyReleased
+  
+     //   pesquisa();
+        limparTb(model2);
+    //  DefaultTableModel model = new DefaultTableModel();
+    
+       if(evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE){
+       listEnt = dg.consultar(Estado.class, nome.getText());
+      }
+      else{
+           for (int i = listEnt.size()-1; i >= 0; i--) {
+               if(!listEnt.get(i).getNome().matches("(.*)"+nome.getText()+"(.*)")){
+                   listEnt.remove(i);
+           }}                   
+       }
+      
+        for (int i = 0; i < listEnt.size(); i++) {
+            Object[] data = {listEnt.get(i).getNome(), listEnt.get(i).getSigla()};
+            model2.addRow(data);
+        }
 
+        tabela.setModel(model2);
+        
+    }//GEN-LAST:event_nomeKeyReleased
+
+    
+
+   public void limparTb(DefaultTableModel md){
+if (md.getRowCount() > 0) {
+    for (int i = md.getRowCount() - 1; i > -1; i--) {
+        md.removeRow(i);
+    }
+}       
+   }
     /**
      * @param args the command line arguments
      */
@@ -203,7 +207,6 @@ public class TelaEstCon extends javax.swing.JDialog implements MouseListener {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField nome;
-    private javax.swing.JButton pesquisar;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 

@@ -4,24 +4,25 @@ import Entidades.Cidade;
 import Entidades.Cliente;
 import Entidades.Estado;
 import Fabrica_DAO.DAOGenerico;
+import com.sun.glass.events.KeyEvent;
+import java.awt.Toolkit;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class TelaCli extends javax.swing.JInternalFrame {
 
-    DAOGenerico de = new DAOGenerico();
+  private  DAOGenerico dg = new DAOGenerico();
     private Cliente altes;
-
+private List<Cidade> gg = dg.consultar(Cidade.class);
     public TelaCli() {
         initComponents();
         setVisible(true);
-        DAOGenerico de = new DAOGenerico();
-        List<Cidade> gg = de.consultar(Cidade.class);
+        List<Cidade> gg = dg.consultar(Cidade.class);
         for (int i = 0; i < gg.size(); i++) {
             cidade.addItem(gg.get(i).getNome());
         }
-        novo.setEnabled(false);
-        atualizar.setEnabled(false);
-        excluir.setEnabled(false);
+        atualizar.setVisible(false);
+        excluir.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -39,15 +40,38 @@ public class TelaCli extends javax.swing.JInternalFrame {
         nome = new javax.swing.JTextField();
         cidade = new javax.swing.JComboBox<>();
         numero = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter("######");
+            numero = new javax.swing.JFormattedTextField(masc);
+        }
+        catch (Exception e){
+        }
         rua = new javax.swing.JTextField();
         bairro = new javax.swing.JTextField();
         telefone = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter("(##)#####-####");
+            masc.setPlaceholderCharacter('_');
+            telefone = new javax.swing.JFormattedTextField(masc);
+        }
+        catch (Exception e){
+        }
+        if(telefone.getText().length() > 9){
+            System.out.println("asdqwezxc");
+        }
         cpf = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter("###.###.###-##");
+            masc.setPlaceholderCharacter('_');
+            cpf = new javax.swing.JFormattedTextField(masc);
+        }
+        catch (Exception e){
+        }
         rg = new javax.swing.JTextField();
+        calcelar = new javax.swing.JButton();
         salvar = new javax.swing.JButton();
         excluir = new javax.swing.JButton();
         atualizar = new javax.swing.JButton();
-        novo = new javax.swing.JButton();
         alterar = new javax.swing.JButton();
 
         setClosable(true);
@@ -68,7 +92,34 @@ public class TelaCli extends javax.swing.JInternalFrame {
 
         labCpf.setText("CPF");
 
-        salvar.setText("Salvar");
+        nome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomeKeyTyped(evt);
+            }
+        });
+
+        cidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione uma cidade" }));
+
+        rua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                ruaKeyTyped(evt);
+            }
+        });
+
+        bairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bairroKeyTyped(evt);
+            }
+        });
+
+        calcelar.setText("Cancelar");
+        calcelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcelarActionPerformed(evt);
+            }
+        });
+
+        salvar.setText("salvar");
         salvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarActionPerformed(evt);
@@ -86,13 +137,6 @@ public class TelaCli extends javax.swing.JInternalFrame {
         atualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 atualizarActionPerformed(evt);
-            }
-        });
-
-        novo.setText("novo");
-        novo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                novoActionPerformed(evt);
             }
         });
 
@@ -148,17 +192,14 @@ public class TelaCli extends javax.swing.JInternalFrame {
                                 .addComponent(rg, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                                 .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(alterar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                                .addComponent(excluir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(atualizar))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(novo)
-                                .addGap(74, 74, 74)))
-                        .addGap(171, 171, 171)
+                        .addComponent(alterar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                        .addComponent(calcelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(excluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(atualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(salvar)
                         .addContainerGap())))
         );
@@ -192,83 +233,81 @@ public class TelaCli extends javax.swing.JInternalFrame {
                     .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(salvar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(novo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(atualizar)
-                            .addComponent(excluir)
-                            .addComponent(alterar))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(salvar)
+                    .addComponent(atualizar)
+                    .addComponent(excluir)
+                    .addComponent(alterar)
+                    .addComponent(calcelar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+    private void calcelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcelarActionPerformed
+        novos();
+        limpar();
+    }//GEN-LAST:event_calcelarActionPerformed
 
-        List<Cidade> gg = de.consultar(Cidade.class);
+    private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
+        if(teste()){
+            return;
+        }
+       
         int numeroo = Integer.parseInt(numero.getText());
         int rgg = Integer.parseInt(rg.getText());
         Cliente c1 = new Cliente();
         c1.setNome(nome.getText());
-        c1.setCidade(gg.get(cidade.getSelectedIndex()));
+        c1.setCidade(gg.get(cidade.getSelectedIndex()-1));
         c1.setBairro(bairro.getText());
         c1.setRua(rua.getText());
         c1.setNumero(numeroo);
         c1.setCPF(cpf.getText());
         c1.setRg(rgg);
-        de.salvar(c1);
-        nome.setText("");
-        bairro.setText("");
-        rua.setText("");
-        numero.setText("");
-        telefone.setText("");
-        rg.setText("");
-        cpf.setText("");
+        dg.salvar(c1);
+        limpar();
     }//GEN-LAST:event_salvarActionPerformed
 
     private void excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_excluirActionPerformed
-        de.excluir(Cliente.class, altes.getId());
+    dg.excluir(Cliente.class, altes.getId());
         novos();
         limpar();
+
     }//GEN-LAST:event_excluirActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
-        List<Cidade> gg = de.consultar(Cidade.class);
+          if(teste()){
+            return;
+        }
+       
         altes.setNome(nome.getText());
-        altes.setCidade(gg.get(cidade.getSelectedIndex()));
+        altes.setCidade(gg.get(cidade.getSelectedIndex()-1));
         altes.setBairro(bairro.getText());
         altes.setRua(rua.getText());
         altes.setNumero(Integer.parseInt(numero.getText()));
-        altes.setFone(Integer.parseInt(telefone.getText()));
+        altes.setTel(Integer.parseInt(telefone.getText()));
         altes.setRg(Integer.parseInt(rg.getText()));
         altes.setCPF(cpf.getText());
-        de.atualizar(altes);
+        dg.atualizar(altes);
         novos();
         limpar();
     }//GEN-LAST:event_atualizarActionPerformed
 
-    private void novoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoActionPerformed
-        novos();
-        limpar();
-    }//GEN-LAST:event_novoActionPerformed
-
     private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
-        List<Estado> gg = de.consultar(Cidade.class);
+
         atualizas();
 
         TelaCliCon a = new TelaCliCon(null, true);
 
         altes = a.numero();
         nome.setText(altes.getNome());
+        cidade.setSelectedIndex(0);
         bairro.setText(altes.getBairro());
         rua.setText(altes.getRua());
         numero.setText(Integer.toString(altes.getNumero()));
-        telefone.setText(Integer.toString(altes.getFone()));
+        telefone.setText(Integer.toString(altes.getTel()));
         cpf.setText(altes.getCPF());
         rg.setText(Integer.toString(altes.getRg()));
         labNome.setText("nome(" + altes.getNome() + ")");
@@ -276,25 +315,40 @@ public class TelaCli extends javax.swing.JInternalFrame {
         labBairro.setText("bairro(" + altes.getBairro() + ")");
         labRua.setText("rua(" + altes.getRua() + ")");
         labNumero.setText("numero(" + altes.getNumero() + ")");
-        labTel.setText("telefone(" + altes.getFone() + ")");
+        labTel.setText("telefone(" + altes.getTel()+ ")");
         labCpf.setText("cpf(" + altes.getCPF() + ")");
         labRg.setText("rg(" + altes.getRg() + ")");
     }//GEN-LAST:event_alterarActionPerformed
-    public void novos() {
 
-        novo.setEnabled(false);
-        alterar.setEnabled(true);
-        atualizar.setEnabled(false);
-        excluir.setEnabled(false);
-        salvar.setEnabled(true);
+    private void nomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomeKeyTyped
+        if(nome.getText().isEmpty()){
+       evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+    }
+    }//GEN-LAST:event_nomeKeyTyped
+
+    private void ruaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ruaKeyTyped
+        if(nome.getText().isEmpty()){
+            evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+        }
+    }//GEN-LAST:event_ruaKeyTyped
+
+    private void bairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bairroKeyTyped
+        if(nome.getText().isEmpty()){
+            evt.setKeyChar(Character.toUpperCase(evt.getKeyChar()));
+        }
+    }//GEN-LAST:event_bairroKeyTyped
+      public void novos() {
+        alterar.setVisible(true);
+        atualizar.setVisible(false);
+        excluir.setVisible(false);
+        salvar.setVisible(true);
     }
 
     public void atualizas() {
-        novo.setEnabled(true);
-        alterar.setEnabled(false);
-        atualizar.setEnabled(true);
-        excluir.setEnabled(true);
-        salvar.setEnabled(false);
+        alterar.setVisible(false);
+        atualizar.setVisible(true);
+        excluir.setVisible(true);
+        salvar.setVisible(false);
     }
 
     private void limpar() {
@@ -314,11 +368,43 @@ public class TelaCli extends javax.swing.JInternalFrame {
         labCpf.setText("cpf");
         labRg.setText("rg");
     }
+        private boolean teste(){
+    if(nome.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo nome esta vazio");
+        return true;
+    }else if(cidade.getSelectedIndex() == 0){
+        JOptionPane.showMessageDialog(null,"selecione uma cidade");
+        return true;
+    } else if(bairro.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo bairro esta vazio");
+        return true;
+    } else if(rua.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo rua esta vazio");
+        return true;
+    } else if(numero.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo numero esta vazio");
+        return true;
+    } else if(telefone.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo telefone esta vazio");
+        return true;
+    } else if(cpf.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo cpf esta vazio");
+        return true;
+    } else if(rg.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo rg esta vazio");
+        return true;
+    } else{
+         JOptionPane.showMessageDialog(null,"operação concluida com sucesso");
+          
+       return false; 
+        } 
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterar;
     private javax.swing.JButton atualizar;
     private javax.swing.JTextField bairro;
+    private javax.swing.JButton calcelar;
     private javax.swing.JComboBox<String> cidade;
     private javax.swing.JTextField cpf;
     private javax.swing.JButton excluir;
@@ -331,7 +417,6 @@ public class TelaCli extends javax.swing.JInternalFrame {
     private javax.swing.JLabel labRua;
     private javax.swing.JLabel labTel;
     private javax.swing.JTextField nome;
-    private javax.swing.JButton novo;
     private javax.swing.JTextField numero;
     private javax.swing.JTextField rg;
     private javax.swing.JTextField rua;

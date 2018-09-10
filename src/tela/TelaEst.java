@@ -11,14 +11,14 @@ public class TelaEst extends javax.swing.JInternalFrame {
 
     private DAOGenerico dg = new DAOGenerico();
     private Estado ent;
-
+  private String txtErro = "";
     public TelaEst() {
         super("Estado", true, true, true);
         initComponents();
         setVisible(true);
         List<Estado> gg = dg.consultar(Estado.class);
         getRootPane().setDefaultButton(salvar);
-
+       
         novos();
     }
 
@@ -32,6 +32,7 @@ public class TelaEst extends javax.swing.JInternalFrame {
         jMenu2 = new javax.swing.JMenu();
         jToggleButton1 = new javax.swing.JToggleButton();
         jComboBox2 = new javax.swing.JComboBox<>();
+        jSeparator1 = new javax.swing.JSeparator();
         nome = new javax.swing.JTextField();
         labnome = new javax.swing.JLabel();
         labsigla = new javax.swing.JLabel();
@@ -41,6 +42,16 @@ public class TelaEst extends javax.swing.JInternalFrame {
         atualizar = new javax.swing.JButton();
         alterar = new javax.swing.JButton();
         calcelar = new javax.swing.JButton();
+        soNumero1 = new zaas.SoNumero();
+        testess = new javax.swing.JTextField();
+        try{ 
+            javax.swing.text.MaskFormatter cpf= new javax.swing.text.MaskFormatter("(*.).###-##");
+            cpf.setPlaceholderCharacter('_');
+            testess = new javax.swing.JFormattedTextField(cpf);
+        }
+        catch (Exception e){
+        }
+        testeMascV21 = new zaas.TesteMascV2();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -55,6 +66,7 @@ public class TelaEst extends javax.swing.JInternalFrame {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setClosable(true);
+        setToolTipText("");
 
         nome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -107,11 +119,27 @@ public class TelaEst extends javax.swing.JInternalFrame {
             }
         });
 
+        soNumero1.setText("soNumero1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labnome, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labsigla)
+                            .addComponent(sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(soNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(alterar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(calcelar)
@@ -123,14 +151,11 @@ public class TelaEst extends javax.swing.JInternalFrame {
                 .addComponent(salvar)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labnome)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labsigla)
-                    .addComponent(sigla, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(testess, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(testeMascV21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,14 +167,28 @@ public class TelaEst extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sigla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 232, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvar)
-                    .addComponent(atualizar)
-                    .addComponent(excluir)
-                    .addComponent(alterar)
-                    .addComponent(calcelar))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(soNumero1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(testess, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(138, 138, 138)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(salvar)
+                            .addComponent(atualizar)
+                            .addComponent(excluir)
+                            .addComponent(alterar)
+                            .addComponent(calcelar))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(testeMascV21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(172, Short.MAX_VALUE))))
         );
 
         pack();
@@ -171,8 +210,12 @@ public class TelaEst extends javax.swing.JInternalFrame {
 
         TelaEstCon consulta = new TelaEstCon(null, true);
         consulta.setModal(true);
-
-        ent = consulta.numero();
+        
+    if(consulta.numero() == null)
+          return;
+    else
+     ent = consulta.numero();
+    
         nome.setText(ent.getNome());
         sigla.setText(ent.getSigla());
         labnome.setText("nome(" + ent.getNome() + ")");
@@ -254,15 +297,29 @@ public class TelaEst extends javax.swing.JInternalFrame {
     }
     
     private boolean teste(){
-    if(nome.getText().isEmpty() || sigla.getText().isEmpty()){
-        JOptionPane.showMessageDialog(null,"certo");
-        return true;
-        
-    }else{
-           JOptionPane.showMessageDialog(null,"erro");
-       return false; 
-               } 
+        Boolean b = false;
+    if(nome.getText().isEmpty()){
+        addErro("o campo nome esta vazio", b);
     }
+    if(sigla.getText().isEmpty()){
+        addErro("o campo sigla esta vazio", b);
+    }
+    if(txtErro == ""){
+         JOptionPane.showMessageDialog(null,"operação concluida com sucesso");
+    }else{    
+       JOptionPane.showMessageDialog(null,txtErro);   
+        } 
+    return b;
+    }
+    
+    private void addErro(String s, boolean b){
+    if(txtErro == ""){
+      txtErro = s;  
+    }else{
+       txtErro += "\n"+ s;
+    }   
+     b = true;  
+    }     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterar;
@@ -274,11 +331,15 @@ public class TelaEst extends javax.swing.JInternalFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JLabel labnome;
     private javax.swing.JLabel labsigla;
     private javax.swing.JTextField nome;
     private javax.swing.JButton salvar;
     private javax.swing.JTextField sigla;
+    private zaas.SoNumero soNumero1;
+    private zaas.TesteMascV2 testeMascV21;
+    private javax.swing.JTextField testess;
     // End of variables declaration//GEN-END:variables
 }

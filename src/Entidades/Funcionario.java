@@ -2,7 +2,6 @@
 package Entidades;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Funcionario extends Pessoa {

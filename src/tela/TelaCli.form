@@ -76,20 +76,14 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="alterar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="51" max="32767" attributes="0"/>
-                              <Component id="excluir" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="atualizar" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="novo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
+                      <Component id="alterar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="137" max="32767" attributes="0"/>
+                      <Component id="calcelar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="excluir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="atualizar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="salvar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -133,18 +127,13 @@
                   <Component id="cpf" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="rg" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="52" max="32767" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="salvar" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="novo" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="excluir" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="alterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="salvar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="excluir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="alterar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="calcelar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -193,11 +182,16 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="nome">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nomeKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cidade">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
+          <StringArray count="1">
+            <StringItem index="0" value="Selecione uma cidade"/>
+          </StringArray>
         </Property>
       </Properties>
       <AuxValues>
@@ -205,20 +199,43 @@
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="numero">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter(&quot;######&quot;);&#xd;&#xa;numero = new javax.swing.JFormattedTextField(masc);&#xd;&#xa;}&#xd;&#xa;catch (Exception e){&#xd;&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="rua">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="ruaKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="bairro">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="bairroKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="telefone">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter(&quot;(##)#####-####&quot;);&#xd;&#xa;masc.setPlaceholderCharacter(&apos;_&apos;);&#xd;&#xa;telefone = new javax.swing.JFormattedTextField(masc);&#xd;&#xa;}&#xd;&#xa;catch (Exception e){&#xd;&#xa;}&#xd;&#xa;if(telefone.getText().length() &gt; 9){&#xd;&#xa;System.out.println(&quot;asdqwezxc&quot;);&#xd;&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="cpf">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="try{ &#xd;&#xa;javax.swing.text.MaskFormatter masc= new javax.swing.text.MaskFormatter(&quot;###.###.###-##&quot;);&#xd;&#xa;masc.setPlaceholderCharacter(&apos;_&apos;);&#xd;&#xa;cpf = new javax.swing.JFormattedTextField(masc);&#xd;&#xa;}&#xd;&#xa;catch (Exception e){&#xd;&#xa;}"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="rg">
     </Component>
+    <Component class="javax.swing.JButton" name="calcelar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcelarActionPerformed"/>
+      </Events>
+    </Component>
     <Component class="javax.swing.JButton" name="salvar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Salvar"/>
+        <Property name="text" type="java.lang.String" value="salvar"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvarActionPerformed"/>
@@ -238,14 +255,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="atualizarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="novo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="novo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="novoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="alterar">

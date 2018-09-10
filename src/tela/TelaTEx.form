@@ -34,40 +34,27 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labTempo" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="tempo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="labnome" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="nome" alignment="0" pref="145" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labpreco" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="preco" alignment="0" min="-2" pref="80" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="tempo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="labnome" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="nome" alignment="0" pref="145" max="32767" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="249" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labnome" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="labpreco" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="labnome" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nome" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="preco" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="nome" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labTempo" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="tempo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="166" max="32767" attributes="0"/>
+              <EmptySpace pref="170" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="salvar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -122,19 +109,14 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="nome">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="nomeKeyTyped"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labnome">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nome"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labpreco">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Pre&#xe7;o inicial"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="preco">
     </Component>
     <Component class="javax.swing.JLabel" name="labTempo">
       <Properties>
@@ -142,6 +124,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tempo">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tempoKeyTyped"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -16,7 +16,7 @@ public class Pessoa {
    private String bairro;
    private String rua;
    private int numero;
-   private int fone;
+   private int tel;
    @ManyToOne
    private Cidade cidade;
 
@@ -68,12 +68,12 @@ public class Pessoa {
         this.numero = numero;
     }
 
-    public int getFone() {
-        return fone;
+    public int getTel() {
+        return tel;
     }
 
-    public void setFone(int fone) {
-        this.fone = fone;
+    public void setTel(int tel) {
+        this.tel = tel;
     }
-   
+
 }

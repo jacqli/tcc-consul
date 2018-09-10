@@ -13,7 +13,6 @@ public class TipoEx {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String nome;
-    private double preco;
     private int tempoEx;
 
     public int getId() {
@@ -30,14 +29,6 @@ public class TipoEx {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public int getTempoEx() {

@@ -6,7 +6,11 @@ import Entidades.Exame;
 import Entidades.TipoEx;
 import Fabrica_DAO.DAOGenerico;
 import java.awt.Toolkit;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import org.jdatepicker.impl.JDatePickerImpl;
 
@@ -21,8 +25,8 @@ public class TelaExame extends javax.swing.JInternalFrame {
         initComponents();
                 novos();
         setVisible(true);
+        addHorarios();
         
-        horario.setText("1234");
         System.out.println( listCon.size());
         for (int i = 0; i < listCon.size(); i++) {
             System.out.println("aaaa");
@@ -39,6 +43,7 @@ public class TelaExame extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jComboBox1 = new javax.swing.JComboBox<>();
         labhora = new javax.swing.JLabel();
         salvar = new javax.swing.JButton();
         excluir = new javax.swing.JButton();
@@ -47,11 +52,13 @@ public class TelaExame extends javax.swing.JInternalFrame {
         cancelar = new javax.swing.JButton();
         labdata = new javax.swing.JLabel();
         labtex = new javax.swing.JLabel();
-        horario = new javax.swing.JTextField();
         consulta = new javax.swing.JComboBox<>();
-        data = new zaas.Meud();
         labcliente = new javax.swing.JLabel();
         cliente = new javax.swing.JComboBox<>();
+        data = new zaas.Meud();
+        horario = new javax.swing.JComboBox<>();
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         labhora.setText("horario");
 
@@ -95,56 +102,54 @@ public class TelaExame extends javax.swing.JInternalFrame {
         labtex.setText("consulta");
         labtex.setToolTipText("");
 
-        horario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                horarioKeyTyped(evt);
+        labcliente.setText("Paciente");
+
+        data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                dataMouseReleased(evt);
             }
         });
-
-        data.setBackground(new java.awt.Color(245, 245, 245));
-
-        labcliente.setText("Paciente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(alterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(excluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(atualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(salvar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labcliente)
-                            .addComponent(labdata))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labhora)
-                            .addComponent(labtex)
-                            .addComponent(consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addComponent(alterar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cancelar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(excluir)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(atualizar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(salvar)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labcliente)
+                    .addComponent(labdata))
+                .addGap(54, 54, 54)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(consulta, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labhora)
+                    .addComponent(labtex))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labtex)
-                    .addComponent(labcliente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labcliente)
+                    .addComponent(labtex, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(consulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,7 +161,7 @@ public class TelaExame extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(horario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvar)
                     .addComponent(atualizar)
@@ -171,13 +176,18 @@ public class TelaExame extends javax.swing.JInternalFrame {
 
     private void salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarActionPerformed
         Exame e1 = new Exame();
+        Calendar cal =  Calendar.getInstance();
+        JDatePickerImpl datePicker = (JDatePickerImpl) data.getComponent(0);
+        datePicker.getModel().getValue();
+        String h1 = (String) horario.getSelectedItem();
+        String[] h = h1.split(":");
+        cal.set(datePicker.getModel().getYear(), datePicker.getModel().getMonth(), datePicker.getModel().getDay(), 
+                Integer.parseInt(h[0]), Integer.parseInt(h[1]),0);
+ 
         e1.setCliente(listCli.get(cliente.getSelectedIndex()));
         e1.setTipoEx(listCon.get(consulta.getSelectedIndex()));
-        Calendar cal =  Calendar.getInstance();
-       JDatePickerImpl datePicker = (JDatePickerImpl) data.getComponent(0);
-       datePicker.getModel().getValue();
-        cal.set(datePicker.getModel().getYear(),datePicker.getModel().getMonth() ,datePicker.getModel().getDay(), 1, 1);
-        e1.setData(cal);
+        e1.setData(cal.getTime());
+        e1.setHora(cal.getTime());
         dg.salvar(e1);
         limpar();
     }//GEN-LAST:event_salvarActionPerformed
@@ -199,14 +209,12 @@ public class TelaExame extends javax.swing.JInternalFrame {
         limpar();
     }//GEN-LAST:event_cancelarActionPerformed
 
-    private void horarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_horarioKeyTyped
-      char c = evt.getKeyChar();
-      if(Character.isDigit(c))
-         Toolkit.getDefaultToolkit().beep();
-      else
-      evt.consume();
-    }//GEN-LAST:event_horarioKeyTyped
-  public void novos() {
+    private void dataMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dataMouseReleased
+       addHorarios();   
+        System.out.println("ddddd");
+    }//GEN-LAST:event_dataMouseReleased
+
+    public void novos() {
 
         alterar.setEnabled(true);
         atualizar.setEnabled(false);
@@ -233,14 +241,39 @@ public class TelaExame extends javax.swing.JInternalFrame {
 
     private void limpar() {
        
-        horario.setText("");
+        horario.setSelectedIndex(0);
         labdata.setText("nome");
         labtex.setText("sigla");
         labcliente.setText("paciente");
         labhora.setText("horario");
 
     }
+    private void addHorarios(){
+        horario.removeAllItems();
+         List<Exame> listEx = dg.consultar(Exame.class);
+         JDatePickerImpl datePicker = (JDatePickerImpl) data.getComponent(0);
+        datePicker.getModel().getValue();
+        boolean jaMarcado;
+        
+  for (LocalTime i = LocalTime.of(8, 00); i.getHour() <= 20; i=i.plusMinutes(30)) {
+      jaMarcado = true;
+                  
+      for (int i2 = 0; i2 < listEx.size(); i2++) {
+      if(listEx.get(i2).getData().getMonth() == datePicker.getModel().getMonth()
+      && listEx.get(i2).getData().getDate()== datePicker.getModel().getDay()
+      && listEx.get(i2).getHora().getHours() == i.getHour() 
+      && listEx.get(i2).getHora().getMinutes() == i.getMinute()){
+      jaMarcado = false;
+      }
+      }
 
+      
+      if(jaMarcado && !(i.getHour() == 12 || (i.getHour() == 13 && i.getMinute() == 00))){   
+      horario.addItem(i.toString());
+          }
+       
+  }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton alterar;
     private javax.swing.JButton atualizar;
@@ -249,7 +282,8 @@ public class TelaExame extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> consulta;
     private zaas.Meud data;
     private javax.swing.JButton excluir;
-    private javax.swing.JTextField horario;
+    private javax.swing.JComboBox<String> horario;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel labcliente;
     private javax.swing.JLabel labdata;
     private javax.swing.JLabel labhora;

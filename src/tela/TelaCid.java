@@ -129,10 +129,11 @@ public class TelaCid extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labestado)
-                    .addComponent(labnome))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(labnome)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -161,7 +162,7 @@ public class TelaCid extends javax.swing.JInternalFrame {
    
         Cidade c1 = new Cidade();
         c1.setNome(nome.getText());
-        c1.setEstado(listEst.get(estado.getSelectedIndex()));
+        c1.setEstado(listEst.get(estado.getSelectedIndex()-1));
         de.salvar(c1);
         limpar();
 
@@ -189,6 +190,9 @@ public class TelaCid extends javax.swing.JInternalFrame {
         TelaCidCon consulta = new TelaCidCon(null, true);
         consulta.setModal(true);
 
+       if(consulta.numero() == null)
+       return;
+       else
         ent = consulta.numero();
         nome.setText(ent.getNome());
         estado.setSelectedItem("Selecione um estado");
@@ -238,18 +242,23 @@ public class TelaCid extends javax.swing.JInternalFrame {
         nome.setText("");
         estado.setSelectedItem("Selecione um estado");
         labnome.setText("nome");
-        labestado.setText("sigla");
+        labestado.setText("estado");
 
     }
         private boolean teste(){
-    if(nome.getText().isEmpty() || estado.getSelectedIndex()== 0){
-        JOptionPane.showMessageDialog(null,"certo");
+     if(nome.getText().isEmpty()){
+        JOptionPane.showMessageDialog(null,"o campo nome esta vazio");
         return true;
         
-    }else{
-           JOptionPane.showMessageDialog(null,"erro");
+    }else if(estado.getSelectedIndex() == 0){
+        JOptionPane.showMessageDialog(null,"selecione um estado");
+        return true;
+    }
+    else{
+         JOptionPane.showMessageDialog(null,"cadastro concluido com sucesso");
+          
        return false; 
-               } 
+        } 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
