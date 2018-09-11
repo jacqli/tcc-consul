@@ -114,7 +114,7 @@ public class CriaClasse {
         dg.salvar(f3);
 
         Cliente cl2 = new Cliente();
-        cl2.setNome("aa");
+        cl2.setNome("Ronaldo");
         cl2.setCidade(c3);
         cl2.setBairro("aaa");
         cl2.setRua("ruaaaa");
@@ -122,10 +122,11 @@ public class CriaClasse {
         cl2.setTel(12345);
         cl2.setRg(123456);
         cl2.setCPF("12342455");
+        cl2.setCamImg("../fotos/cliTeste.png");
         dg.salvar(cl2);
 
         Cliente cl3 = new Cliente();
-        cl3.setNome("bb");
+        cl3.setNome("Mulher do Ronaldo");
         cl3.setCidade(c3);
         cl3.setBairro("bbb");
         cl3.setRua("rubbbbb");
@@ -133,6 +134,7 @@ public class CriaClasse {
         cl3.setTel(54321);
         cl3.setRg(654321);
         cl3.setCPF("12355324");
+        cl3.setCamImg("../fotos/cliTeste.png");
         dg.salvar(cl3);
 
         TipoEx te1 = new TipoEx();

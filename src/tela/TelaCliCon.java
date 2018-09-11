@@ -10,7 +10,6 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaCliCon extends javax.swing.JDialog {
 
-      private Cidade tabelasela;
       private Cliente tabelasel;
       private List<Cliente> gg;
     public TelaCliCon(java.awt.Frame parent, boolean modal) {
@@ -21,7 +20,7 @@ public class TelaCliCon extends javax.swing.JDialog {
         setModal(true);
         
     }
-        public Cliente numero(){
+        public Cliente getCliSel(){
     return tabelasel;   
     }
 

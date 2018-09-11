@@ -301,7 +301,7 @@ private List<Cidade> gg = dg.consultar(Cidade.class);
 
         TelaCliCon a = new TelaCliCon(null, true);
 
-        altes = a.numero();
+        altes = a.getCliSel();
         nome.setText(altes.getNome());
         cidade.setSelectedIndex(0);
         bairro.setText(altes.getBairro());

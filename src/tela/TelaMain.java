@@ -1,6 +1,7 @@
 
 package tela;
 
+import Entidades.Cliente;
 import Entidades.Estado;
 import Entidades.Funcionario;
 import Fabrica_DAO.DAOGenerico;
@@ -251,7 +252,8 @@ public class TelaMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-   TelaCliD tcd = new TelaCliD();
+        TelaCliCon tcc = new TelaCliCon(null, true);
+        TelaCliD tcd = new TelaCliD(tcc.getCliSel());
         painel1.add(tcd);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
